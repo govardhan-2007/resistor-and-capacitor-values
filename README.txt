@@ -20,5 +20,3 @@ CAPACITORS
 - Capacitance -> 3-digit code
 - Common code examples
 - Explanation of AB x 10^C pF notation
-
-No server or internet connection is required.
