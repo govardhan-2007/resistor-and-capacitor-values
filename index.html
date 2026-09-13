@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electronics Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button class="mobile-menu" id="mobileMenu">☰</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-icon">⚡</div>
+    <div>
+      <strong>Electronics</strong>
+      <span>Toolbox</span>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-title">COMPONENTS</div>
+    <button class="nav-item active" data-page="resistor">
+      <span class="nav-icon">▥</span> Resistors
+    </button>
+    <button class="nav-item" data-page="capacitor">
+      <span class="nav-icon">║</span> Capacitors
+    </button>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="nav-title">TOOLS</div>
+    <div class="coming">More components coming soon</div>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="app">
+<header>
+  <div class="eyebrow">ELECTRONICS TOOLBOX</div>
+  <h1 id="pageTitle">Resistor Colour Code Calculator</h1>
+  <p id="pageSubtitle">Decode resistor bands, calculate resistance, and learn the colour code.</p>
+</header>
+
+<main>
+
+<!-- RESISTOR PAGE -->
+<div id="resistorPage" class="page active-page">
+
+<section class="card">
+  <div class="section-head">
+    <div>
+      <h2>Resistor Type</h2>
+      <p>Choose the number of colour bands on your resistor.</p>
+    </div>
+    <span class="badge" id="bandBadge">4 BAND</span>
+  </div>
+
+  <div class="type-switch">
+    <button class="type-btn active" data-bands="4">4 Band</button>
+    <button class="type-btn" data-bands="5">5 Band</button>
+    <button class="type-btn" data-bands="6">6 Band</button>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-head">
+    <div>
+      <h2>Colour → Resistance</h2>
+      <p>Select the bands to calculate the resistor value.</p>
+    </div>
+  </div>
+
+  <div class="selectors" id="resistorSelectors"></div>
+
+  <div class="resistor-wrap">
+    <div class="wire"></div>
+    <div class="resistor-body" id="resistorBody"></div>
+    <div class="wire"></div>
+  </div>
+
+  <div class="result-box">
+    <div class="result-label">Resistance</div>
+    <div class="result" id="resistorResult">1 kΩ ±5%</div>
+    <div class="range" id="resistorRange"></div>
+    <div class="detail" id="resistorDetail"></div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-head">
+    <div>
+      <h2>Resistance → Colour</h2>
+      <p>Enter a resistance and choose the resistor type.</p>
+    </div>
+  </div>
+
+  <div class="reverse-form">
+    <input type="number" id="resistanceInput" placeholder="Example: 75000" min="0.01" step="any">
+    <select id="reverseTolerance">
+      <option value="gold">±5%</option>
+      <option value="silver">±10%</option>
+      <option value="brown">±1%</option>
+      <option value="red">±2%</option>
+    </select>
+    <button type="button" id="convertBtn">Find Colours</button>
+  </div>
+  <div id="reverseResult" class="reverse-result">Enter a value and click <strong>Find Colours</strong>.</div>
+</section>
+
+<section class="card">
+  <div class="section-head">
+    <div><h2>Resistor Colour Reference</h2><p>Standard colour values used for resistor bands.</p></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Colour</th><th>Digit</th><th>Multiplier</th><th>Tolerance</th><th>TCR</th></tr></thead>
+      <tbody id="referenceTable"></tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<!-- CAPACITOR PAGE -->
+<div id="capacitorPage" class="page">
+
+<section class="card">
+  <div class="section-head">
+    <div>
+      <h2>Capacitor Calculator</h2>
+      <p>Decode capacitor markings and convert capacitance values.</p>
+    </div>
+    <span class="badge">CAPACITOR</span>
+  </div>
+
+  <div class="capacitor-tabs">
+    <button class="cap-tab active" data-capmode="code">Code → Capacitance</button>
+    <button class="cap-tab" data-capmode="value">Capacitance → Code</button>
+  </div>
+
+  <div id="capCodeMode">
+    <div class="cap-input-row">
+      <label>3-digit capacitor code
+        <input id="capCode" type="text" inputmode="numeric" maxlength="3" placeholder="104">
+      </label>
+      <label>Voltage (optional)
+        <input id="capVoltage" type="number" min="0" placeholder="50">
+      </label>
+    </div>
+    <button class="wide-btn" id="decodeCapBtn">Decode Capacitor</button>
+    <div class="cap-result" id="capCodeResult">
+      Example: <strong>104</strong> = 100 nF.
+    </div>
+  </div>
+
+  <div id="capValueMode" class="hidden">
+    <div class="cap-input-row">
+      <label>Capacitance
+        <input id="capValue" type="number" min="0.000001" step="any" placeholder="100">
+      </label>
+      <label>Unit
+        <select id="capUnit">
+          <option value="pF">pF</option>
+          <option value="nF" selected>nF</option>
+          <option value="µF">µF</option>
+          <option value="mF">mF</option>
+        </select>
+      </label>
+    </div>
+    <button class="wide-btn" id="encodeCapBtn">Find Code</button>
+    <div class="cap-result" id="capValueResult">Enter a capacitance value to find its common 3-digit code.</div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-head">
+    <div><h2>Common Capacitor Codes</h2><p>The 3-digit code is normally read in picofarads (pF).</p></div>
+  </div>
+  <div class="cap-code-grid">
+    <div><strong>101</strong><span>100 pF</span></div>
+    <div><strong>102</strong><span>1 nF</span></div>
+    <div><strong>103</strong><span>10 nF</span></div>
+    <div><strong>104</strong><span>100 nF</span></div>
+    <div><strong>105</strong><span>1 µF</span></div>
+    <div><strong>106</strong><span>10 µF</span></div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-head">
+    <div><h2>How Capacitor Codes Work</h2><p>For a typical 3-digit code.</p></div>
+  </div>
+  <div class="formula">
+    <div class="formula-big">AB × 10<sup>C</sup> pF</div>
+    <p>Example: <strong>472</strong> → 47 × 10² pF → <strong>4,700 pF = 4.7 nF</strong></p>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer>Electronics Toolbox • Resistors & Capacitors</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
